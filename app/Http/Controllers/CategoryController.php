@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Auth;
+use Inertia\inertia;
 
 class CategoryController extends Controller
 {
@@ -16,10 +17,9 @@ class CategoryController extends Controller
     public function index()
     {
         $query = Category::query();
-        $categories = $query->get();
-        // dump(CategoryResource::collection($categories));
-        return inertia ("Category/Index",[
-            "categories"=> CategoryResource::collection($categories),
+        $categories = $query->paginate(10);
+        return inertia("Category/Index",[
+            "categories" => CategoryResource::collection($categories),
             
         ]);
     }
@@ -57,7 +57,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return inertia ('Category/Edit',[
+            "category"=> new CategoryResource($category)
+        ]);
     }
 
     /**
@@ -65,7 +67,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data =$request->validated();
+
+        $category->update($data);
+        return to_route('category.index');
     }
 
     /**
@@ -73,6 +78,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->items()->count() > 0) {
+            $category->items()->delete();
+        }
+        $category->delete();
+        return to_route('category.index');
     }
+
+
 }

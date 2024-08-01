@@ -1,7 +1,16 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
-const index = ({ auth }) => {
+import { Head, Link, router } from "@inertiajs/react";
+const index = ({ auth ,categories}) => {
+
+    const deleteProject = (category)=>{
+        if(!window.confirm("Do you want to delete the project?")){
+            return;
+        }
+        router.delete(route("category.destroy",category.id));
+        
+        
+}
     return (
         <div>
             <AuthenticatedLayout
@@ -28,10 +37,10 @@ const index = ({ auth }) => {
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Created By</th>
-                                        {/* <th scope="col">Handle</th> */}
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                {/* <tbody>
+                                <tbody>
                                     {categories &&
                                         categories.data &&
                                         categories.data.map((category) => (
@@ -43,9 +52,14 @@ const index = ({ auth }) => {
                                                 <td>
                                                     {category.createdBy.name}
                                                 </td>
+                                                <td >
+                                                    <Link href={route("category.edit",category.id)} className="px-3 py2 text-green-400" >Edit</Link>
+                                                    <button onClick={(e)=> deleteProject(category)}  className="text-red-700">Delete</button>
+                                                </td>
+                                
                                             </tr>
                                         ))}
-                                </tbody> */}
+                                </tbody>
                             </table>
                         </div>
                     </div>
