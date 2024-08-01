@@ -1,15 +1,20 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 const index = ({ auth }) => {
     return (
         <div>
             <AuthenticatedLayout
                 user={auth.user}
                 header={
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <div className="flex justify-between items">
+                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Categories
                     </h2>
+                    <Link type="button" class="btn btn-success" href={route("category.create")}>
+                        Add new
+                    </Link>
+                    </div>
                 }
             >
                 <Head title="Categories" />
@@ -26,7 +31,7 @@ const index = ({ auth }) => {
                                         {/* <th scope="col">Handle</th> */}
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {/* <tbody>
                                     {categories &&
                                         categories.data &&
                                         categories.data.map((category) => (
@@ -40,7 +45,7 @@ const index = ({ auth }) => {
                                                 </td>
                                             </tr>
                                         ))}
-                                </tbody>
+                                </tbody> */}
                             </table>
                         </div>
                     </div>
