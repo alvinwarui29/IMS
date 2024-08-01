@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreItemRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,13 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" =>["required"],
+            "description"=> ["required"],
+            "image_path"=>["nullable"],
+            "quantity"=>["required"],
+            "cost_price"=>["required"],
+            "selling_price"=>["required"],
+            "category_id"=>["nullable"]
         ];
     }
 }

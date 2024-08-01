@@ -6,6 +6,8 @@ use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Http\Resources\ItemResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
@@ -34,7 +36,16 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        $data = $request->validated();
+        $image= $data['image_path']?? null;
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
+        if($image){
+            $data['image_path']= $image->store('project/'.Str::random(),'public');
+        }
+        Item::create($data);
+
+        return to_route("item.index");
     }
 
     /**
