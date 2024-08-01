@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Http\Resources\ItemResource;
 
 class ItemController extends Controller
 {
@@ -13,7 +14,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $query = Item::query();
+        $items = $query->paginate(10);
+        return inertia("Item/Index",[
+           "items" => ItemResource::collection($items),
+        ]);
     }
 
     /**
