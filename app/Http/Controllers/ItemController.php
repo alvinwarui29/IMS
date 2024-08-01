@@ -70,7 +70,9 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return inertia ('Item/Edit',[
+            "item"=> new ItemResource($item)
+        ]);
     }
 
     /**
@@ -78,7 +80,10 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        $data =$request->validated();
+
+        $item->update($data);
+        return to_route('item.index');
     }
 
     /**
@@ -86,6 +91,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return to_route('item.index');
     }
 }

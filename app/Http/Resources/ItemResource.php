@@ -19,12 +19,12 @@ class ItemResource extends JsonResource
             "id"=>$this->id,
             "name"=> $this->name,
             "description"=> $this->description,
-            "image_path"=>$this->image_path ,
+            "image_path"=>$this->image_path ? Storage::url($this->image_path): '',
             "quantity"=> $this->quantity,
-            "costPrice"=> $this->costPrice,
-            "sellingPrice"=> $this->sellingPrice,
+            "cost_price"=> $this->cost_price,
+            "selling_price"=> $this->selling_price,
             "createdBy"=>new UserResource($this->createdBy)
-
+//? Storage::url($this->image_path): ''
         ];
     }
 }

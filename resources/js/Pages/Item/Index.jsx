@@ -33,6 +33,14 @@ const index = ({ auth, items,queryParams= null }) => {
         router.get(route('item.index'),queryParams)
     }
 
+    const deleteProject = (item)=>{
+        if(!window.confirm("Do you want to delete the project?")){
+            return;
+        }
+        router.delete(route("item.destroy",item.id));  
+             
+}
+
     return (
         <div>
             <AuthenticatedLayout
@@ -67,6 +75,7 @@ const index = ({ auth, items,queryParams= null }) => {
                                         <th className="cursor-pointer" onClick={(e)=>sortChaged("name")} scope="col">Name</th>
                                         <th className="cursor-pointer" onClick={(e)=>sortChaged("created_by")} scope="col">CreatedBy</th>
                                         <th scope="col">Image</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <thead>
@@ -99,6 +108,10 @@ const index = ({ auth, items,queryParams= null }) => {
                                                     alt={item.name}
                                                 />
                                             </td>
+                                            <td >
+                                                    <Link href={route("item.edit",item.id)} className="px-3 py2 text-green-400" >Edit</Link>
+                                                    <button onClick={(e)=> deleteProject(item)}  className="text-red-700">Delete</button>
+                                                </td>
                                         </tr>
                                     ))}
                                 </tbody>
