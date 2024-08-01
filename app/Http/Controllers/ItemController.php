@@ -17,9 +17,18 @@ class ItemController extends Controller
     public function index()
     {
         $query = Item::query();
-        $items = $query->paginate(10);
+
+        $sortField = request("sort_field","created_at");
+        $sortDirection = request("sort_direction","desc");
+
+        if(request("name")){
+            $query->where("name","like","%".request("name")."%");
+        }
+
+        $items = $query->orderBy($sortField,$sortDirection)->paginate(10);
         return inertia("Item/Index",[
            "items" => ItemResource::collection($items),
+           "queryParams"=> request()->query() ?:null,
         ]);
     }
 

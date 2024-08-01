@@ -1,8 +1,38 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
+import TextInput from "@/Components/TextInput";
 
-const index = ({ auth, items }) => {
+const index = ({ auth, items,queryParams= null }) => {
+    queryParams = queryParams ||{}
+    const searchFieldChanged = (name,value)=>{
+        if(value){
+            queryParams[name]= value
+        }else{
+            delete queryParams[name]
+        }
+        router.get(route('item.index'),queryParams)
+    }
+
+    const onKeyPress=(name,e)=>{
+        if(e.key !== 'Enter') return;
+        searchFieldChanged(name,e.target.value);
+    }
+
+    const sortChaged = (name)=>{
+        if(name === queryParams.sort_field){
+            if(queryParams.sort_direction ==="asc"){
+                queryParams.sort_direction = "desc"
+            }else{
+                queryParams.sort_direction = "asc"
+            }
+        }else{
+            queryParams.sort_field = name;
+            queryParams.sort_direction = "asc"
+        }
+        router.get(route('item.index'),queryParams)
+    }
+
     return (
         <div>
             <AuthenticatedLayout
@@ -33,10 +63,26 @@ const index = ({ auth, items }) => {
                                         {JSON.stringify(items, undefined, 2)}
                                     </pre> */}
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">CreatedBy</th>
+                                        <th className="cursor-pointer" onClick={(e)=>sortChaged("id")} scope="col">#</th>
+                                        <th className="cursor-pointer" onClick={(e)=>sortChaged("name")} scope="col">Name</th>
+                                        <th className="cursor-pointer" onClick={(e)=>sortChaged("created_by")} scope="col">CreatedBy</th>
                                         <th scope="col">Image</th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <TextInput className="w-full "
+                                            placeholder ="Item name"
+                                            onBlur={e=> searchFieldChanged('name',e.target.valur)}
+                                            defaultValue= {queryParams.status}
+                                            onKeyPress={e=>onKeyPress('name',e)}
+                                              />
+                                        </th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
