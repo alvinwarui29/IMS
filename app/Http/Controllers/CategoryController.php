@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return inertia("Project/Create");
+        return inertia("Category/Create");
     }
 
     /**

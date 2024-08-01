@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 
 const index = ({auth}) => {
@@ -8,7 +8,14 @@ const index = ({auth}) => {
     <div>
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Items</h2>}
+            header={<div className="flex justify-between items">
+                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Items
+                    </h2>
+                    <Link type="button" class="btn btn-success" href={route("item.create")}>
+                        Add new
+                    </Link>
+                    </div>}
         >
             <Head title="Items" />
 
