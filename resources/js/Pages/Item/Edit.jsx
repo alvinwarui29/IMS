@@ -11,11 +11,12 @@ const Edit = ({ auth,item }) => {
         cost_price:item.data.cost_price || "",
         selling_price:item.data.selling_price || "",
         created_by: item.data.created_by || "",
+       _method:"PUT"
     });
     const onSubmit = (e) => {
         e.preventDefault();
 
-        put(route("item.update",item.id));
+        put(route("item.update",item.data.id));
     };
     return (
         <AuthenticatedLayout
@@ -27,7 +28,9 @@ const Edit = ({ auth,item }) => {
                     </h2>
                 </div>
             }
+    
         >
+        
             <Head title="Categories" />
             <form onSubmit={onSubmit}>
                 <div class="form-group">
@@ -36,7 +39,7 @@ const Edit = ({ auth,item }) => {
                         type="text"
                         class="form-control"
                         id="item_name"
-                        value={item.data.name}
+                        value={data.name}
                         placeholder="Enter item name"
                         onChange={(e) => setData("name", e.target.value)}
                     />
@@ -92,7 +95,7 @@ const Edit = ({ auth,item }) => {
                         type="text"
                         class="form-control"
                         id="item_c"
-                        value={item.data.cost_price}
+                        value={data.cost_price}
                         placeholder="Enter item cost price"
                         onChange={(e) => setData("cost_price", e.target.value)}
                     />
@@ -106,7 +109,7 @@ const Edit = ({ auth,item }) => {
                         type="text"
                         class="form-control"
                         id="item_s"
-                        value={item.data.selling_price}
+                        value={data.selling_price}
                         placeholder="Enter item cost price"
                         onChange={(e) => setData("selling_price", e.target.value)}
                     />

@@ -65,16 +65,19 @@ const index = ({ auth, items,queryParams= null }) => {
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                            <table className="table">
+                            <table className="table  w-full">
                                 <thead>
                                     {/* <pre>
                                         {JSON.stringify(items, undefined, 2)}
                                     </pre> */}
                                     <tr>
                                         <th className="cursor-pointer" onClick={(e)=>sortChaged("id")} scope="col">#</th>
-                                        <th className="cursor-pointer" onClick={(e)=>sortChaged("name")} scope="col">Name</th>
-                                        <th className="cursor-pointer" onClick={(e)=>sortChaged("created_by")} scope="col">CreatedBy</th>
+                                        <th className="cursor-pointer w-25" onClick={(e)=>sortChaged("name")} scope="col">Name</th>
+                                        <th className="cursor-pointer w-25" onClick={(e)=>sortChaged("created_by")} scope="col">Description</th>
                                         <th scope="col">Image</th>
+                                        <th>Quantity</th>
+                                        <th>Cost price</th>
+                                        <th>Selling price</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -99,7 +102,7 @@ const index = ({ auth, items,queryParams= null }) => {
                                         <tr key={item.id}>
                                             <th scope="row">{item.id}</th>
                                             <td>{item.name}</td>
-                                            <td>{item.createdBy.name}</td>
+                                            <td>{item.description}</td>
                                             <td>
                                                 <img
                                                     src={item.image_path}
@@ -108,8 +111,17 @@ const index = ({ auth, items,queryParams= null }) => {
                                                     alt={item.name}
                                                 />
                                             </td>
-                                            <td >
-                                                    <Link href={route("item.edit",item.id)} className="px-3 py2 text-green-400" >Edit</Link>
+                                            <td>
+                                                {item.quantity}
+                                            </td>
+                                            <td>
+                                                {item.cost_price}
+                                            </td>
+                                            <td>
+                                                {item.selling_price}
+                                            </td>
+                                            <td>
+                                                    <Link href={route("item.edit",item.id)} className=" px-2 text-green-400" >Edit</Link>
                                                     <button onClick={(e)=> deleteProject(item)}  className="text-red-700">Delete</button>
                                                 </td>
                                         </tr>

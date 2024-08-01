@@ -10,7 +10,7 @@ const Edit = ({ auth, category }) => {
     });
     const onSubmit = (e) => {
         e.preventDefault();
-        put(route("category.update",{ category: category.id }));
+        put(route("category.update",{ category: category.data.id }));
 
     };
     return (
