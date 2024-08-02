@@ -2,6 +2,7 @@ import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import TextInput from "@/Components/TextInput";
+import Pagination from "@/Components/Pagination";
 
 const index = ({ auth, items,queryParams= null }) => {
     queryParams = queryParams ||{}
@@ -128,6 +129,7 @@ const index = ({ auth, items,queryParams= null }) => {
                                     ))}
                                 </tbody>
                             </table>
+                            <Pagination links={items.meta.links}/>
                         </div>
                     </div>
                 </div>
