@@ -2,11 +2,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Dashboard({ auth, totalItems, totalQuantity }) {
+export default function Dashboard({ auth, totalItems, totalQuantity, totalProfit }) {
     useEffect(() => {
         console.log('Total Items:', totalItems);
         console.log('Total Quantity:', totalQuantity);
-    }, [totalItems, totalQuantity]);
+    }, [totalItems, totalQuantity,totalProfit]);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -33,6 +33,16 @@ export default function Dashboard({ auth, totalItems, totalQuantity }) {
                             Total quantity Inventory items
                         </h3>
                         <p className="px-6 text-yellow-400 dark:text-gray-100">{totalQuantity}</p>
+                            
+                        </div>
+                    </div>
+                    <div className="bg-blue-950 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-yellow-400 dark:text-gray-100">
+                        <h3 className="p-6 text-yellow-400 dark:text-gray-100">
+                            
+                            Expected returns
+                        </h3>
+                        <p className="px-6 text-yellow-400 dark:text-gray-100">{totalProfit}</p>
                             
                         </div>
                     </div>
